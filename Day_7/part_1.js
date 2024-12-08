@@ -90,7 +90,6 @@ function main() {
 
     // Split content into lines and filter out empty lines
     const equations = fileContent.split("\n").filter((line) => line.trim() !== "");
-    //console.log("Input Translation: ", equations);
 
     // Calculate the total calibration sum
     const result = calculateCalibrationSum(equations);
