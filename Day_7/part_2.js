@@ -8,13 +8,18 @@ function calculateCalibrationSum(equations) {
     function evaluateExpression(numbers, operators) {
 
         let result = numbers[0];
+
         for (let i = 0; i < operators.length; i++) {
+
             if (operators[i] === "+") {
             result += numbers[i + 1];
             } else if (operators[i] === "*") {
             result *= numbers[i + 1];
+            } else if (operators[i] === "concat") {
+            result = parseInt(result.toString() + numbers[i + 1].toString(), 10);
             }
         }
+
         return result;
     }
   
@@ -22,7 +27,7 @@ function calculateCalibrationSum(equations) {
     function generateOperatorCombinations(n) {
 
         // Operator values
-        const ops = ["+", "*"];
+        const ops = ["+", "*", "concat"];
 
         // Provide possible operators and possible slots to helper function
         return product(ops, n);
