@@ -37,8 +37,6 @@ function computeAntinodes(antennas, mapWidth, mapHeight) {
         freqMap[antenna.freq].push(antenna);
 
     }
-    // DEBUG
-    console.log(JSON.stringify(freqMap));
 
     // For each frequency group, calculate antinodes
     for (const freq in freqMap) {
@@ -58,9 +56,6 @@ function computeAntinodes(antennas, mapWidth, mapHeight) {
                 // Calculate differences
                 const dx = a2.x - a1.x;
                 const dy = a2.y - a1.y;
-
-                // DEBUG
-                console.log(`Checking Pair: (${a1.x}, ${a1.y}) <-> (${a2.x}, ${a2.y})`);
 
                 const totalDistance = Math.abs(dx) + Math.abs(dy);
 
@@ -101,25 +96,17 @@ function computeAntinodes(antennas, mapWidth, mapHeight) {
                         secondOuterY = a2.y + ddy;
                     }
 
-                    // DEBUG
-                    console.log(`Valid Pair. Antinode Locations: (${firstOuterX}, ${firstOuterY}), (${secondOuterX}, ${secondOuterY})`);
-
                     // Check bounds for the antinodes
                     if (firstOuterX >= 0 && firstOuterX < mapWidth && firstOuterY >= 0 && firstOuterY < mapHeight) {
                         antinodes.add(`${firstOuterX},${firstOuterY}`);
-                        // DEBUG
-                        console.log(`Added First Outer Antinode: (${firstOuterX}, ${firstOuterY})`);
                     }
                     if (secondOuterX >= 0 && secondOuterX < mapWidth && secondOuterY >= 0 && secondOuterY < mapHeight) {
                         antinodes.add(`${secondOuterX},${secondOuterY}`);
-                        // DEBUG
-                        console.log(`Added Second Outer Antinode: (${secondOuterX}, ${secondOuterY})`);
                     }
                 }
             }
         }
     }
-    console.log("Final Antinodes Set:", [...antinodes]);
     return antinodes;
 }
 
@@ -131,9 +118,6 @@ function main() {
 
     // Trim into usable map
     const map = fs.readFileSync(filePath, 'utf8').trim().split('\n').map(line => line.split(''));
-
-    // DEBUG
-    console.table(map);
 
     // Start helper function to find antennas
     const antennas = findAntennas(map);
