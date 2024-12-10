@@ -26,6 +26,40 @@ function parseDiskMap(diskMap) {
     return blocks;
 }
 
+function compressBlocks(blocks) {
+    const compressBlocks = [];
+    var tail = blocks.length-1;
+
+    // i is Head
+    // tail is Tail
+    for (let i = 0; i <= blocks.length; i++) {
+
+        // Data already fills Head position
+        if (blocks[i] != '.') {
+            continue;
+        }
+
+        // If no data at Tail, find nearest
+        if (blocks[tail] == '.') {
+            while (blocks[tail] == '.') {
+                tail--;
+            }
+        }
+
+        // If Tail passed Head to find data, we are finished
+        if (i >= tail) {
+            break;
+        }
+
+        // Move Tail data to Head free space
+        blocks[i] = blocks[tail];
+        blocks[tail] = '.';
+        tail--;
+    }
+
+    return blocks;
+}
+
 // Input filepath
 const filePath = '2024/Day_9/input.txt';
 
@@ -34,6 +68,9 @@ const diskMap = fs.readFileSync(filePath, 'utf8').trim();
 
 // Parse DiskMap from file
 const blocks = parseDiskMap(diskMap);
-console.log("Blocks: " + blocks);
+console.log(`Blocks: ${blocks}`);
 
+// Compress blocks
+const compBlocks = compressBlocks(blocks);
+console.log(`Compressed Blocks: ${compBlocks}`);
 
