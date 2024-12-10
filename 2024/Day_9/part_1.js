@@ -27,7 +27,7 @@ function parseDiskMap(diskMap) {
 }
 
 function compressBlocks(blocks) {
-    const compressBlocks = [];
+    
     var tail = blocks.length-1;
 
     // i is Head
@@ -60,6 +60,23 @@ function compressBlocks(blocks) {
     return blocks;
 }
 
+function calculateChecksum(compBlocks) {
+    
+    var totalChecksum = 0;
+
+    for (let j = 0; j <= compBlocks.length; j++) {
+
+        // Find the start of free space
+        if (compBlocks[j] == '.') {
+            break;
+        }
+
+        totalChecksum += (j * compBlocks[j]);
+    }
+
+    return totalChecksum;
+}
+
 // Input filepath
 const filePath = '2024/Day_9/input.txt';
 
@@ -74,3 +91,6 @@ console.log(`Blocks: ${blocks}`);
 const compBlocks = compressBlocks(blocks);
 console.log(`Compressed Blocks: ${compBlocks}`);
 
+// Calculate Checksum
+const checksum = calculateChecksum(compBlocks);
+console.log(`Calculated Checksum: ${checksum}`);
